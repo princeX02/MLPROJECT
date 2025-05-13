@@ -32,13 +32,13 @@ class DataTransformation:
 
             num_pipeline = Pipeline(steps=[
                 ("imputer", SimpleImputer(strategy='median')),
-                ("scalar", StandardScaler())
+                ("scaler", StandardScaler())
             ])
 
             cat_pipeline = Pipeline(steps=[
                 ("imputer", SimpleImputer(strategy='most_frequent')),
                 ("one_hot_encoding", OneHotEncoder()),
-                ("scale", StandardScaler(with_mean=False))
+                ("scaler", StandardScaler(with_mean=False))
             ])
 
             logging.info(f"Numerical columns: {numerical_columns}")
@@ -83,6 +83,8 @@ class DataTransformation:
             )
 
             logging.info("Saved preprocessing object.")
+            logging.info(f"Transformed training shape: {train_arr.shape}")
+            logging.info(f"Transformed testing shape: {test_arr.shape}")
 
             return (
                 train_arr,
